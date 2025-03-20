@@ -359,7 +359,7 @@ function DashBoard() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:4000/api/fetch-entry",
+        "https://datamangement-server.onrender.com/api/fetch-entry",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -380,9 +380,12 @@ function DashBoard() {
         setIsAdmin(false);
         return;
       }
-      const response = await axios.get("http://localhost:4000/api/user-role", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "https://datamangement-server.onrender.com/api/user-role",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setIsAdmin(response.data.isAdmin || false);
     } catch (error) {
       console.error("Error fetching admin status:", error.message);
@@ -572,7 +575,7 @@ function DashBoard() {
         const token = localStorage.getItem("token");
         for (const chunk of chunks) {
           const response = await axios.post(
-            "http://localhost:4000/api/entries",
+            "https://datamangement-server.onrender.com/api/entries",
             chunk,
             {
               headers: {
@@ -606,10 +609,13 @@ function DashBoard() {
   const handleExport = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:4000/api/export", {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: "arraybuffer",
-      });
+      const response = await axios.get(
+        "https://datamangement-server.onrender.com/api/export",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: "arraybuffer",
+        }
+      );
       const blob = new Blob([response.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
